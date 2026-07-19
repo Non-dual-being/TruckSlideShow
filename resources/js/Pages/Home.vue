@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
 
+import TruckSlideshow from '@/Components/Trucks/TruckSlideshow.vue';
+import { trucks } from '@/data/trucks';
+
 interface Props {
     dedication: string;
 }
@@ -9,36 +12,46 @@ defineProps<Props>();
 </script>
 
 <template>
-    <Head title="Wims Volvo-tijdreis" />
+    <Head>
+        <title>Wims Volvo-tijdreis</title>
 
-    <main class="min-h-screen bg-slate-950 text-white">
-        <section
-            class="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-16 sm:px-10 lg:px-16"
+        <meta
+            head-key="description"
+            name="description"
+            content="Een persoonlijke reis door de geschiedenis van Volvo-vrachtwagens, van de F88 tot de moderne FH."
         >
-            <p class="mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-sky-400">
-                Van F88 tot FH
-            </p>
+    </Head>
 
-            <h1 class="max-w-4xl text-5xl font-black tracking-tight sm:text-7xl lg:text-8xl">
-                Wims Volvo-tijdreis
-            </h1>
+    <main class="bg-slate-950">
+        <section class="relative flex min-h-screen items-center overflow-hidden text-white">
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.18),_transparent_40%),linear-gradient(135deg,_#020617,_#0f172a_55%,_#172554)]"
+            />
 
-            <p class="mt-8 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-                {{ dedication }}
-            </p>
+            <div class="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 sm:px-10 lg:px-16">
+                <p class="text-sm font-bold uppercase tracking-[0.35em] text-sky-300">
+                    Van F88 tot FH
+                </p>
 
-            <div class="mt-12">
-                <button
-                    type="button"
-                    class="rounded-full bg-white px-7 py-4 font-semibold text-slate-950 transition hover:bg-sky-300"
+                <h1 class="mt-6 max-w-5xl text-6xl font-black tracking-tight sm:text-8xl">
+                    Wims Volvo-tijdreis
+                </h1>
+
+                <p class="mt-8 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+                    {{ dedication }}
+                </p>
+
+                <a
+                    href="#tijdreis"
+                    class="mt-12 inline-flex rounded-full bg-white px-7 py-4 font-bold text-slate-950 transition hover:bg-sky-300 focus:outline-none focus:ring-4 focus:ring-sky-300/40"
                 >
                     Start de reis
-                </button>
+                </a>
             </div>
-
-            <p class="mt-16 text-sm text-slate-500">
-                Eerste technische proefversie
-            </p>
         </section>
+
+        <div id="tijdreis">
+            <TruckSlideshow :trucks="trucks" />
+        </div>
     </main>
 </template>

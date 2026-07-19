@@ -23,7 +23,7 @@ defineProps<Props>();
         />
 
         <div
-            class="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 py-24 sm:px-10 lg:px-16"
+            class="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6 py-24 sm:px-10 md:px-28 lg:px-32 xl:px-16"
         >
             <div class="max-w-3xl">
                 <div class="mb-8 flex items-center gap-4">

@@ -8,6 +8,23 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const fallbackImage = '/images/trucks/placeholder-truck.svg';
+
+function handleImageError(event: Event): void {
+    const image = event.currentTarget;
+
+    if (!(image instanceof HTMLImageElement)) {
+        return;
+    }
+
+    if (image.dataset.fallbackApplied === 'true') {
+        return;
+    }
+
+    image.dataset.fallbackApplied = 'true';
+    image.src = fallbackImage;
+}
 </script>
 
 <template>
@@ -16,6 +33,7 @@ defineProps<Props>();
             :src="truck.image.src"
             :alt="truck.image.alt"
             class="absolute inset-0 h-full w-full object-cover opacity-35"
+            @error="handleImageError"
         >
 
         <div
@@ -74,6 +92,44 @@ defineProps<Props>();
                     </div>
                 </dl>
             </div>
+        </div>
+        <div
+            v-if="
+                truck.image.creator
+                || truck.image.sourceName
+                || truck.image.licenseName
+            "
+            class="absolute bottom-4 right-4 z-20 max-w-sm rounded-md bg-slate-950/75 px-3 py-2 text-right text-[0.7rem] leading-5 text-slate-300 backdrop-blur"
+        >
+            <span v-if="truck.image.creator">
+                Foto: {{ truck.image.creator }}
+            </span>
+
+            <span v-if="truck.image.sourceName">
+                · {{ truck.image.sourceName }}
+            </span>
+
+            <a
+                v-if="truck.image.sourceUrl"
+                :href="truck.image.sourceUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ml-1 underline decoration-slate-500 underline-offset-2 hover:text-white"
+            >
+                bron
+            </a>
+
+            <a
+                v-if="truck.image.licenseUrl"
+                :href="truck.image.licenseUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ml-1 underline decoration-slate-500 underline-offset-2 hover:text-white"
+            >
+                {{ truck.image.licenseName ?? 'licentie' }}
+            </a>
+
+            <span> · bijgesneden/geoptimaliseerd</span>
         </div>
     </article>
 </template>

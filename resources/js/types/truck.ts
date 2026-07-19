@@ -6,8 +6,11 @@ export interface TruckSpecification {
 export interface TruckImage {
     src: string;
     alt: string;
-    credit?: string;
+    creator?: string;
+    sourceName?: string;
     sourceUrl?: string;
+    licenseName?: string;
+    licenseUrl?: string;
 }
 
 export interface Truck {

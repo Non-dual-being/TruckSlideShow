@@ -15,90 +15,79 @@ const emit = defineEmits<{
 <template>
     <div class="pointer-events-none absolute inset-0 z-20 hidden md:block" role="group" aria-label="Zijbediening slideshow">
         <button
+            v-if="props.activeIndex > 0"
             type="button"
-            class="side-gear side-gear--left group left-4 lg:left-7"
-            :disabled="props.activeIndex === 0"
+            class="side-zone side-zone--left group left-0"
             aria-label="Ga met de linker versnellingspook naar de vorige vrachtwagen"
             @click="emit('previous')"
         >
-            <svg viewBox="0 0 64 112" class="h-24 w-14" aria-hidden="true">
-                <path d="M32 92V43" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="7" />
-                <path d="M32 92 18 105M32 92l14 13" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="5" />
-                <circle class="gear-knob" cx="32" cy="26" r="18" fill="#172033" stroke="currentColor" stroke-width="4" />
-                <path d="m36 18-8 8 8 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" />
-            </svg>
+            <span class="side-gear" aria-hidden="true">
+                <svg viewBox="0 0 64 112" class="h-20 w-10">
+                    <path d="M32 92V43" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="6" />
+                    <path d="M32 92 20 103M32 92l12 11" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4" />
+                    <circle cx="32" cy="26" r="16" fill="#172033" stroke="currentColor" stroke-width="4" />
+                    <path d="m36 19-7 7 7 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" />
+                </svg>
+            </span>
         </button>
 
         <button
+            v-if="props.activeIndex < props.total - 1"
             type="button"
-            class="side-gear side-gear--right group right-4 lg:right-7"
-            :disabled="props.activeIndex === props.total - 1"
+            class="side-zone side-zone--right group right-0"
             aria-label="Ga met de rechter versnellingspook naar de volgende vrachtwagen"
             @click="emit('next')"
         >
-            <svg viewBox="0 0 64 112" class="h-24 w-14" aria-hidden="true">
-                <path d="M32 92V43" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="7" />
-                <path d="M32 92 18 105M32 92l14 13" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="5" />
-                <circle class="gear-knob" cx="32" cy="26" r="18" fill="#172033" stroke="currentColor" stroke-width="4" />
-                <path d="m28 18 8 8-8 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" />
-            </svg>
+            <span class="side-gear" aria-hidden="true">
+                <svg viewBox="0 0 64 112" class="h-20 w-10">
+                    <path d="M32 92V43" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="6" />
+                    <path d="M32 92 20 103M32 92l12 11" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4" />
+                    <circle cx="32" cy="26" r="16" fill="#172033" stroke="currentColor" stroke-width="4" />
+                    <path d="m28 19 7 7-7 7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" />
+                </svg>
+            </span>
         </button>
     </div>
 </template>
 
 <style scoped>
-.side-gear {
+.side-zone {
     pointer-events: auto;
+    position: absolute;
+    top: 18%;
+    bottom: 18%;
+    width: 3rem;
+    border: 0;
+    background: transparent;
+}
+
+.side-zone:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: -3px;
+}
+
+.side-gear {
     position: absolute;
     top: 50%;
     display: grid;
     place-items: center;
-    width: 4.5rem;
-    height: 8rem;
-    transform: translateY(-50%);
-    border: 1px solid rgb(148 163 184 / 35%);
-    border-radius: 0.75rem;
+    width: 2.75rem;
+    height: 6.5rem;
+    border: 1px solid rgb(148 163 184 / 28%);
+    border-radius: 0.625rem;
     color: #bae6fd;
-    background: rgb(15 23 42 / 72%);
-    opacity: 0.58;
-    transition: transform 250ms ease, opacity 250ms ease, border-color 250ms ease, background-color 250ms ease;
+    background: rgb(15 23 42 / 82%);
+    opacity: 0.06;
+    transition: opacity 260ms ease, transform 260ms ease, border-color 260ms ease;
 }
 
-.side-gear--left:hover:not(:disabled),
-.side-gear--left:focus-visible {
-    transform: translate(0.4rem, -50%);
-}
+.side-zone--left .side-gear { left: 0; transform: translate(-1.25rem, -50%); }
+.side-zone--right .side-gear { right: 0; transform: translate(1.25rem, -50%); }
 
-.side-gear--right:hover:not(:disabled),
-.side-gear--right:focus-visible {
-    transform: translate(-0.4rem, -50%);
-}
-
-.side-gear:hover:not(:disabled),
-.side-gear:focus-visible {
-    border-color: #7dd3fc;
-    background: rgb(23 32 51 / 92%);
-    opacity: 1;
-}
-
-.side-gear:focus-visible {
-    outline: 3px solid #38bdf8;
-    outline-offset: 3px;
-}
-
-.side-gear:disabled {
-    cursor: not-allowed;
-    opacity: 0.18;
-}
-
-.gear-knob {
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: transform 250ms ease;
-}
-
-.side-gear:hover:not(:disabled) .gear-knob,
-.side-gear:focus-visible .gear-knob {
-    transform: rotate(12deg) scale(1.08);
+.side-zone:hover .side-gear,
+.side-zone:focus-visible .side-gear {
+    border-color: rgb(125 211 252 / 70%);
+    opacity: 0.88;
+    transform: translate(0, -50%);
 }
 </style>

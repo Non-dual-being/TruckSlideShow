@@ -17,7 +17,7 @@ const emit = defineEmits<{
 
 <template>
     <div class="flex items-center justify-center gap-4 sm:gap-7" aria-label="Slideshowbediening">
-        <button type="button" class="steering-button group" :disabled="isFirst" aria-label="Ga naar de vorige vrachtwagen" @click="emit('previous')">
+        <button type="button" class="steering-button group" :class="{ 'steering-button--unavailable': isFirst }" :disabled="isFirst" aria-label="Ga naar de vorige vrachtwagen" @click="emit('previous')">
             <svg viewBox="0 0 64 64" class="h-12 w-12 transition-transform duration-300 ease-out group-hover:-rotate-12 group-focus-visible:-rotate-12" aria-hidden="true">
                 <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="5" />
                 <circle cx="32" cy="32" r="7" fill="none" stroke="currentColor" stroke-width="4" />
@@ -37,7 +37,7 @@ const emit = defineEmits<{
             <p class="mt-1 text-sm font-semibold text-slate-100">{{ model }}</p>
         </div>
 
-        <button type="button" class="steering-button group" :disabled="isLast" aria-label="Ga naar de volgende vrachtwagen" @click="emit('next')">
+        <button type="button" class="steering-button group" :class="{ 'steering-button--unavailable': isLast }" :disabled="isLast" aria-label="Ga naar de volgende vrachtwagen" @click="emit('next')">
             <svg viewBox="0 0 64 64" class="h-12 w-12 transition-transform duration-300 ease-out group-hover:rotate-12 group-focus-visible:rotate-12" aria-hidden="true">
                 <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="5" />
                 <circle cx="32" cy="32" r="7" fill="none" stroke="currentColor" stroke-width="4" />
@@ -64,5 +64,5 @@ const emit = defineEmits<{
 
 .steering-button:hover:not(:disabled) { border-color: #7dd3fc; background: #202c42; }
 .steering-button:focus-visible { outline: 3px solid #38bdf8; outline-offset: 4px; }
-.steering-button:disabled { cursor: not-allowed; opacity: 0.28; }
+.steering-button--unavailable { visibility: hidden; opacity: 0; }
 </style>

@@ -81,7 +81,7 @@ function goToSlide(index: number): void {
             />
         </div>
 
-        <div class="border-t border-slate-700 bg-[#101827] px-4 py-5 text-white sm:px-8">
+        <div class="border-t border-slate-700 bg-[#101827] px-4 py-4 text-white sm:px-8">
             <div class="mx-auto max-w-7xl">
                 <TruckGearTimeline
                     :trucks="trucks"
@@ -89,7 +89,7 @@ function goToSlide(index: number): void {
                     @select="goToSlide"
                 />
 
-                <div class="mt-4 border-t border-slate-700/70 pt-4">
+                <div class="mt-3 border-t border-slate-700/70 pt-4">
                     <TruckSteeringControls
                         :is-first="isFirstSlide"
                         :is-last="isLastSlide"
